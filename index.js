@@ -11,6 +11,16 @@ const MOVES = [
 ]
 
 function knightMoves(start, end) {
+	let flag = false
+	;[...start, ...end].forEach(value => {
+		if (!Number.isInteger(value) || value < 0 || value >= GRID_SIZE) {
+			console.error('Invalid coordinates')
+			flag = true
+			return
+		}
+	})
+	if (flag) return
+
 	const visited = []
 	const parent = []
 	const q = []
@@ -32,6 +42,7 @@ function knightMoves(start, end) {
 			path.reverse()
 			console.log(`You made it in ${path.length - 1} moves! Here's your path:`)
 			path.forEach(cell => console.log(cell))
+			return path
 		}
 		MOVES.forEach(move => {
 			const newX = currentCell[0] + move[0]
